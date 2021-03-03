@@ -1,23 +1,31 @@
 <%@ page import="com.Item"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	
 <%
+	//.............................................insert item
+	if (request.getParameter("itemCode") != null) {
+		
+		Item itemObj = new Item();
+		
+		String stsMsg = itemObj.insertItem(
+		request.getParameter("itemCode"), 
+		request.getParameter("itemName"),
+		request.getParameter("itemPrice"), 
+		request.getParameter("itemDesc"));
+		
+		session.setAttribute("statusMsg", stsMsg);
+	}
 
-//insert item
-if (request.getParameter("itemCode") != null) {
-	
-	Item itemObj = new Item();
-	
-	String stsMsg = itemObj.insertItem(
-			request.getParameter("itemCode"), 
-			request.getParameter("itemName"),
-			request.getParameter("itemPrice"), 
-			request.getParameter("itemDesc"));
-	
-	session.setAttribute("statusMsg", stsMsg);
-}
-if (request.getParameter("itemID") != null) {}
-%>
+	//.............................................delete item
+	if (request.getParameter("itemID") != null) {
+		
+		Item itemObj = new Item();
+		
+		String stsMsg = itemObj.deleteItem(request.getParameter("itemID"));
+		session.setAttribute("statusMsg", stsMsg);
+	}
+	%>
 <!DOCTYPE html>
 <html>
 <head>
